@@ -62,11 +62,11 @@ from os.path import basename
 import six
 from flask import current_app
 from invenio_db import db
-from sqlalchemy.dialects import mysql
+from sqlalchemy.dialects import mysql, postgresql
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
 from sqlalchemy.orm.exc import MultipleResultsFound
-from sqlalchemy_utils.types import UUIDType
+from sqlalchemy_utils.types import UUIDType, JSONType
 
 from .errors import BucketLockedError, FileInstanceAlreadySetError, \
     FileInstanceUnreadableError, FileSizeError, InvalidKeyError, \
@@ -640,6 +640,21 @@ class FileInstance(db.Model, Timestamp):
     last_check = db.Column(db.Boolean(name='last_check'), default=True)
     """Result of last fixity check."""
 
+    json = db.Column(
+        db.JSON().with_variant(
+            postgresql.JSONB(none_as_null=True),
+            'postgresql',
+        ).with_variant(
+            JSONType(),
+            'sqlite',
+        ).with_variant(
+            JSONType(),
+            'mysql',
+        ),
+        default=lambda: dict(),
+        nullable=True
+    )
+
     @validates('uri')
     def validate_uri(self, key, uri):
         """Validate uri."""
@@ -820,6 +835,22 @@ class FileInstance(db.Model, Timestamp):
             if storage_class is None else \
             storage_class
         return self
+
+    def update_json(self, jsn):
+        """
+        update file metadata
+        :param jsn: Dictionary of file metadata.
+        :return:
+        """
+        self.json = jsn.copy()
+
+    def upload_file(self, fjson, **kwargs):
+        """
+          Put file to Elasticsearch
+        :param fjson:
+        :param kwargs:
+        """
+        self.storage(**kwargs).upload_file(fjson)
 
 
 class ObjectVersion(db.Model, Timestamp):
