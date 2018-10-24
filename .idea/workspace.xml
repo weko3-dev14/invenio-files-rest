@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5477869c-8be6-4d73-b238-e36d3341ffda" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/invenio_files_rest/helpers.py" afterPath="$PROJECT_DIR$/invenio_files_rest/helpers.py" />
       <change beforePath="$PROJECT_DIR$/invenio_files_rest/storage/pyfs.py" afterPath="$PROJECT_DIR$/invenio_files_rest/storage/pyfs.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,11 +16,19 @@
       <file leaf-file-name="pyfs.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/invenio_files_rest/storage/pyfs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-408">
-              <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-              <folding>
-                <element signature="e#1003#1025#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1224">
+              <caret line="77" column="10" lean-forward="false" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -49,8 +56,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/invenio_files_rest/storage/pyfs.py" />
         <option value="$PROJECT_DIR$/invenio_files_rest/helpers.py" />
+        <option value="$PROJECT_DIR$/invenio_files_rest/storage/pyfs.py" />
       </list>
     </option>
   </component>
@@ -171,13 +178,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1224">
+          <caret line="77" column="10" lean-forward="false" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/invenio_files_rest/storage/pyfs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-408">
-          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding>
-            <element signature="e#1003#1025#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

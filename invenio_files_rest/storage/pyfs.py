@@ -24,9 +24,10 @@
 
 """Storage related module."""
 
+from __future__ import absolute_import, print_function
+
 import hashlib, base64
 import cchardet as chardet
-from __future__ import absolute_import, print_function
 
 from flask import current_app
 from fs.opener import opener
