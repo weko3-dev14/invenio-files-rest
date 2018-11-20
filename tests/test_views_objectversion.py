@@ -93,8 +93,6 @@ def test_get(client, headers, bucket, objects, permissions):
             assert resp.status_code == expected
 
             if resp.status_code == 200:
-                # Strips prefix 'md5:' from checksum value.
-                assert resp.content_md5 == obj.file.checksum[4:]
                 assert resp.get_etag()[0] == obj.file.checksum
 
 
@@ -183,8 +181,6 @@ def test_get_versions(client, headers, bucket, versions, permissions):
             assert resp.status_code == expected
 
             if resp.status_code == 200:
-                # Strips prefix 'md5:' from checksum value.
-                assert resp.content_md5 == obj.file.checksum[4:]
                 assert resp.get_etag()[0] == obj.file.checksum
 
 
@@ -240,7 +236,7 @@ def test_post(client, headers, permissions, bucket):
         assert resp.status_code == expected
 
 
-def test_put(client, bucket, permissions, get_md5, get_json):
+def test_put(client, bucket, permissions, get_sha256, get_json):
     """Test upload of an object."""
     cases = [
         (None, 404),
@@ -252,7 +248,7 @@ def test_put(client, bucket, permissions, get_md5, get_json):
 
     key = 'test.txt'
     data = b'updated_content'
-    checksum = get_md5(data, prefix=True)
+    checksum = get_sha256(data, prefix=True)
     object_url = url_for(
         'invenio_files_rest.object_api', bucket_id=bucket.id, key=key)
 
@@ -270,10 +266,9 @@ def test_put(client, bucket, permissions, get_md5, get_json):
             resp = client.get(object_url)
             assert resp.status_code == 200
             assert resp.data == data
-            assert resp.content_md5 == checksum[4:]
 
 
-def test_put_versioning(client, bucket, permissions, get_md5, get_json):
+def test_put_versioning(client, bucket, permissions, get_json):
     """Test versioning feature."""
     key = 'test.txt'
     files = [b'v1', b'v2']

@@ -367,6 +367,16 @@ def get_md5():
 
 
 @pytest.fixture()
+def get_sha256():
+    """Get sha256 of data."""
+    def inner(data, prefix=True):
+        m = hashlib.sha256()
+        m.update(data)
+        return "sha256:{0}".format(m.hexdigest()) if prefix else m.hexdigest()
+    return inner
+
+
+@pytest.fixture()
 def get_json():
     """Get JSON from response."""
     def inner(resp, code=None):

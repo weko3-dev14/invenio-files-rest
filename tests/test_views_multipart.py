@@ -177,7 +177,7 @@ def test_post_invalidkey(client, db, headers, bucket):
 
 
 def test_put(client, db, bucket, permissions, multipart, multipart_url,
-             get_md5, get_json):
+             get_sha256, get_json):
     """Test part upload."""
     cases = [
         (None, 404),
@@ -198,7 +198,7 @@ def test_put(client, db, bucket, permissions, multipart, multipart_url,
         assert res.status_code == expected
 
         if res.status_code == 200:
-            assert res.get_etag()[0] == get_md5(data)
+            assert res.get_etag()[0] == get_sha256(data)
 
             # Assert content
             with open(multipart.file.uri, 'rb') as fp:
@@ -206,7 +206,7 @@ def test_put(client, db, bucket, permissions, multipart, multipart_url,
                 content = fp.read(multipart.chunk_size)
             assert content == data
             assert Part.count(multipart) == 1
-            assert Part.get_or_none(multipart, 1).checksum == get_md5(data)
+            assert Part.get_or_none(multipart, 1).checksum == get_sha256(data)
 
 
 def test_put_not_found(client, db, bucket, permissions, multipart,
