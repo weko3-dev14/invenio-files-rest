@@ -26,6 +26,7 @@ import uuid
 from flask import current_app, flash, url_for
 from flask_admin.actions import action
 from flask_admin.contrib.sqla import ModelView
+from flask_admin.form import SecureForm
 from flask_wtf import FlaskForm
 from invenio_admin.filters import FilterConverter
 from invenio_admin.forms import LazyChoices
@@ -79,7 +80,7 @@ class LocationModelView(ModelView):
     column_filters = ('default', 'created', 'updated', )
     column_searchable_list = ('uri', 'name')
     column_default_sort = 'name'
-    form_base_class = FlaskForm
+    form_base_class = SecureForm
     form_columns = ('name', 'uri', 'default')
     form_args = dict(
         name=dict(validators=[require_slug])
