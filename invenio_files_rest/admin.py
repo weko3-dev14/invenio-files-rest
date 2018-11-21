@@ -62,7 +62,7 @@ class LocationModelView(ModelView):
 
     filter_converter = FilterConverter()
     can_create = True
-    can_edit = False
+    can_edit = True
     can_delete = True
     can_view_details = True
     column_formatters = dict(
