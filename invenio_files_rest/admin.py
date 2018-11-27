@@ -92,7 +92,7 @@ class LocationModelView(ModelView):
     )
     page_size = 25
     edit_template = 'admin/location_edit.html'
-    extra_js = ['admin/location.js']
+    create_template = 'admin/location_edit.html'
 
 class BucketModelView(ModelView):
     """ModelView for the buckets."""
