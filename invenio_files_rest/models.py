@@ -267,6 +267,12 @@ class Location(db.Model, Timestamp):
     At least one location should be the default location.
     """
 
+    type = db.Column(db.String(20), nullable=True)
+
+    access_key = db.Column(db.String(128), nullable=True)
+
+    secret_key = db.Column(db.String(128), nullable=True)
+
     @validates('name')
     def validate_name(self, key, name):
         """Validate name."""

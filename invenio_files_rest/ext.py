@@ -34,7 +34,7 @@ from . import config
 from .cli import files as files_cmd
 from .errors import MultipartNoPart
 from .utils import load_or_import_from_config, obj_or_import_string
-
+from .views import admin_blueprint
 
 class _FilesRESTState(object):
     """Invenio Files REST state."""
@@ -124,6 +124,7 @@ class InvenioFilesREST(object):
         self.init_config(app)
         if hasattr(app, 'cli'):
             app.cli.add_command(files_cmd)
+        app.register_blueprint(admin_blueprint)
         app.extensions['invenio-files-rest'] = _FilesRESTState(app)
 
     def init_config(self, app):

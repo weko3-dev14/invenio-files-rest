@@ -40,6 +40,8 @@ recursive-include docs *.rst
 recursive-include docs Makefile
 recursive-include examples *.py *.sh *.txt
 recursive-include invenio_files_rest *.html
+recursive-include invenio_files_rest *.css
+recursive-include invenio_files_rest *.js
 recursive-include invenio_files_rest *.po *.pot *.mo
 recursive-include invenio_files_rest *.py
 recursive-include tests *.py

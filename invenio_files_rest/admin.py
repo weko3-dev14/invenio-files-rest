@@ -23,7 +23,7 @@ from __future__ import absolute_import, print_function
 
 import uuid
 
-from flask import current_app, flash, url_for
+from flask import current_app, flash, url_for, Blueprint
 from flask_admin.actions import action
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.form import SecureForm
@@ -71,8 +71,9 @@ class LocationModelView(ModelView):
             'bucket.index_view', flt2_2=o.name))
     )
     column_details_list = (
-        'name', 'uri', 'default', 'created', 'updated', 'buckets')
-    column_list = ('name', 'uri', 'default', 'created', 'updated', 'buckets')
+        'type', 'name', 'uri', 'default', 'created', 'updated', 'buckets')
+    column_list = (
+        'type', 'name', 'uri', 'default', 'created', 'updated', 'buckets')
     column_labels = dict(
         id=_('ID'),
         uri=_('URI'),
@@ -81,12 +82,17 @@ class LocationModelView(ModelView):
     column_searchable_list = ('uri', 'name')
     column_default_sort = 'name'
     form_base_class = SecureForm
-    form_columns = ('name', 'uri', 'default')
+    form_columns = (
+        'name', 'uri', 'type', 'access_key', 'secret_key', 'default')
+    form_choices = {
+        'type' : [('s3', 'Amazon S3')]
+    }
     form_args = dict(
         name=dict(validators=[require_slug])
     )
     page_size = 25
-
+    edit_template = 'admin/location_edit.html'
+    extra_js = ['admin/location.js']
 
 class BucketModelView(ModelView):
     """ModelView for the buckets."""

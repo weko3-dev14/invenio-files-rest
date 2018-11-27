@@ -49,8 +49,16 @@ blueprint = Blueprint(
     'invenio_files_rest',
     __name__,
     url_prefix='/files',
+    template_folder='templates',
+    static_folder='static',
 )
 
+admin_blueprint = Blueprint(
+    'invenio_files_rest_admin',
+    __name__,
+    template_folder='templates',
+    static_folder='static',
+)
 
 #
 # Helpers
