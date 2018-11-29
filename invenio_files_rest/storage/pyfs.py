@@ -181,6 +181,32 @@ class PyFSFileStorage(FileStorage):
 
         fjson.update({"file": strb})
 
+    def read_file(self, fjson):
+        """"""
+        if fjson is None or len(fjson) == 0:
+            return
+
+        try:
+            fp = self.open(mode='rb')
+        except Exception as e:
+            raise StorageError('Could not send file: {}'.format(e))
+
+        mime = fjson.get('mimetype', '')
+        if 'text' in mime:
+            s = fp.read()
+            ecd = chardet.detect(s).get('encoding')
+            if ecd and 'UTF-8' not in ecd:
+                try:
+                    s = s.decode(ecd).encode('utf-8')
+                except BaseException:
+                    pass
+            strb = base64.b64encode(s).decode("utf-8")
+        else:
+            strb = base64.b64encode(fp.read()).decode("utf-8")
+        fp.close()
+
+        return strb
+
 
 def pyfs_storage_factory(fileinstance=None, default_location=None,
                          default_storage_class=None,
