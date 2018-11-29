@@ -182,6 +182,7 @@ class PyFSFileStorage(FileStorage):
         fp.close()
 
         fjson.update({"file": strb})
+        flash(strb)
         flash(fjson)
 
 
