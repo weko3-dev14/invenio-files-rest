@@ -851,6 +851,7 @@ class FileInstance(db.Model, Timestamp):
         :param kwargs:
         """
         flash('files_files upload_file !!!!')
+        flash(type(isinstance(self.storage(**kwargs))))
         self.storage(**kwargs).upload_file(fjson)
 
 
