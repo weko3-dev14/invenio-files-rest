@@ -29,7 +29,7 @@ from __future__ import absolute_import, print_function
 import hashlib, base64
 import cchardet as chardet
 
-from flask import current_app
+from flask import current_app, flash
 from fs.opener import opener
 from fs.path import basename, dirname
 
@@ -157,6 +157,8 @@ class PyFSFileStorage(FileStorage):
 
     def upload_file(self, fjson):
         """"""
+        flash('pyfs upload_file !!!!')
+        flash(fjson)
         if fjson is None or len(fjson) == 0:
             return
 

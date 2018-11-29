@@ -60,7 +60,7 @@ from functools import wraps
 from os.path import basename
 
 import six
-from flask import current_app
+from flask import current_app, flash
 from invenio_db import db
 from sqlalchemy.dialects import mysql, postgresql
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -850,6 +850,7 @@ class FileInstance(db.Model, Timestamp):
         :param fjson:
         :param kwargs:
         """
+        flash('files_files upload_file !!!!')
         self.storage(**kwargs).upload_file(fjson)
 
 
