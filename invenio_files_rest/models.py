@@ -862,6 +862,14 @@ class FileInstance(db.Model, Timestamp):
         """
         self.storage(**kwargs).upload_file(fjson)
 
+    def read_file(self, fjson, **kwargs):
+        """
+          Put file to Elasticsearch
+        :param fjson:
+        :param kwargs:
+        """
+        return self.storage(**kwargs).read_file(fjson)
+
 
 class ObjectVersion(db.Model, Timestamp):
     """Model for storing versions of objects.
