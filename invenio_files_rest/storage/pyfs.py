@@ -181,9 +181,9 @@ class PyFSFileStorage(FileStorage):
             strb = base64.b64encode(fp.read()).decode("utf-8")
         fp.close()
 
-        fjson.update({"file": strb})
-        flash(strb)
-        flash(fjson)
+        # fjson.update({"file": strb})
+        # flash(strb)
+        # flash(fjson)
 
 
 def pyfs_storage_factory(fileinstance=None, default_location=None,
