@@ -158,7 +158,7 @@ class PyFSFileStorage(FileStorage):
     def upload_file(self, fjson):
         """"""
         flash('pyfs upload_file !!!!')
-        flash(fjson)
+
         if fjson is None or len(fjson) == 0:
             return
 
@@ -182,6 +182,7 @@ class PyFSFileStorage(FileStorage):
         fp.close()
 
         fjson.update({"file": strb})
+        flash(fjson)
 
 
 def pyfs_storage_factory(fileinstance=None, default_location=None,
