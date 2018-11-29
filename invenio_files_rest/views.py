@@ -528,9 +528,13 @@ class ObjectResource(ContentNegotiatedMethodView):
             current_files_rest.upload_factory()
 
         size_limit = bucket.size_limit
+        location_limit = bucket.location.max_file_size
+        if location_limit != None:
+            size_limit = min(size_limit, location_limit)
         if content_length and size_limit and content_length > size_limit:
             desc = 'File size limit exceeded.' \
                 if isinstance(size_limit, int) else size_limit.reason
+            current_app.logger.error(desc)
             raise FileSizeError(description=desc)
 
         with db.session.begin_nested():

@@ -71,19 +71,23 @@ class LocationModelView(ModelView):
             'bucket.index_view', flt2_2=o.name))
     )
     column_details_list = (
-        'type', 'name', 'uri', 'default', 'created', 'updated', 'buckets')
+        'type', 'name', 'uri', 'default', 'created', 'updated', 'buckets',
+        'quota_size')
     column_list = (
-        'type', 'name', 'uri', 'default', 'created', 'updated', 'buckets')
+        'type', 'name', 'uri', 'default', 'created', 'updated', 'buckets',
+        'quota_size')
     column_labels = dict(
         id=_('ID'),
         uri=_('URI'),
+        quota_size=_('Quota Size')
     )
     column_filters = ('default', 'created', 'updated', )
     column_searchable_list = ('uri', 'name')
     column_default_sort = 'name'
     form_base_class = SecureForm
     form_columns = (
-        'name', 'uri', 'type', 'access_key', 'secret_key', 'default')
+        'name', 'uri', 'type', 'access_key', 'secret_key', 'quota_size',
+        'max_file_size', 'default')
     form_choices = {
         'type' : [('s3', 'Amazon S3')]
     }

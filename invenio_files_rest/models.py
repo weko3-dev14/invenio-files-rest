@@ -273,6 +273,10 @@ class Location(db.Model, Timestamp):
 
     secret_key = db.Column(db.String(128), nullable=True)
 
+    quota_size = db.Column(db.Integer, nullable=True)
+
+    max_file_size = db.Column(db.Integer, nullable=True)
+
     @validates('name')
     def validate_name(self, key, name):
         """Validate name."""
