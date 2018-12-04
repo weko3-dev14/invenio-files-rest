@@ -32,6 +32,7 @@ from invenio_admin.filters import FilterConverter
 from invenio_admin.forms import LazyChoices
 from markupsafe import Markup
 from wtforms.validators import ValidationError
+from wtforms.fields import PasswordField
 
 from .models import Bucket, FileInstance, Location, MultipartObject, \
     ObjectVersion, slug_pattern
@@ -79,7 +80,9 @@ class LocationModelView(ModelView):
     column_labels = dict(
         id=_('ID'),
         uri=_('URI'),
-        quota_size=_('Quota Size')
+        quota_size=_('Quota Size'),
+        access_key=_('Access Key'),
+        secret_key=_('Secret Key')
     )
     column_filters = ('default', 'created', 'updated', )
     column_searchable_list = ('uri', 'name')
@@ -91,12 +94,17 @@ class LocationModelView(ModelView):
     form_choices = {
         'type' : [('s3', 'Amazon S3')]
     }
+    form_extra_fields = {
+        'access_key': PasswordField('access_key'),
+        'secret_key': PasswordField('secret_key')
+    }
     form_args = dict(
         name=dict(validators=[require_slug])
     )
     page_size = 25
     edit_template = 'admin/location_edit.html'
     create_template = 'admin/location_edit.html'
+
 
 class BucketModelView(ModelView):
     """ModelView for the buckets."""
