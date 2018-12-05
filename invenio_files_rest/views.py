@@ -513,6 +513,7 @@ class ObjectResource(ContentNegotiatedMethodView):
 
         return obj
 
+
     def create_object(self, bucket, key):
         """Create a new object.
 
@@ -536,7 +537,10 @@ class ObjectResource(ContentNegotiatedMethodView):
                 if isinstance(size_limit, int) else size_limit.reason
             current_app.logger.error(desc)
             raise FileSizeError(description=desc)
-
+        if not _location_has_quota(bucket, content_length):
+            desc = 'Location has no quota'
+            current_app.logger.error(desc)
+            raise FileSizeError(description=desc)
         with db.session.begin_nested():
             obj = ObjectVersion.create(bucket, key)
             obj.set_contents(
@@ -825,6 +829,20 @@ class ObjectResource(ContentNegotiatedMethodView):
         else:
             obj = self.get_object(bucket, key, version_id)
             return self.delete_object(bucket, obj, version_id)
+
+
+def _location_has_quota(bucket, content_length):
+    quota = bucket.location.quota_size
+    if not quota:
+        return True
+    if not content_length:
+        return True
+    buckets = Bucket.query.filter_by(location=bucket.location).all()
+    total_size = content_length
+    for b in buckets:
+        total_size = total_size + b.size
+    return total_size + 1 < quota
+
 
 #
 # Blueprint definition
