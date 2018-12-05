@@ -132,3 +132,5 @@ FILES_REST_TASK_WAIT_INTERVAL = 2
 
 FILES_REST_TASK_WAIT_MAX_SECONDS = 600
 """Maximum number of seconds to wait for a task to finish."""
+
+FILES_REST_LOCATION_TYPE_LIST = [('s3', 'Amazon S3')]

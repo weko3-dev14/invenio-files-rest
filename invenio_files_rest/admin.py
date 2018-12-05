@@ -92,7 +92,7 @@ class LocationModelView(ModelView):
         'name', 'uri', 'type', 'access_key', 'secret_key', 'quota_size',
         'max_file_size', 'default')
     form_choices = {
-        'type' : [('s3', 'Amazon S3')]
+        'type' : current_app.config['FILES_REST_STORAGE_CLASS_LIST']
     }
     form_extra_fields = {
         'access_key': PasswordField('access_key'),
