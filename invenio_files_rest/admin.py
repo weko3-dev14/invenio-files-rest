@@ -33,6 +33,7 @@ from invenio_admin.forms import LazyChoices
 from markupsafe import Markup
 from wtforms.validators import ValidationError
 from wtforms.fields import PasswordField
+from wtforms.widgets import PasswordInput
 
 from .models import Bucket, FileInstance, Location, MultipartObject, \
     ObjectVersion, slug_pattern
@@ -92,11 +93,14 @@ class LocationModelView(ModelView):
         'name', 'uri', 'type', 'access_key', 'secret_key', 'quota_size',
         'max_file_size', 'default')
     form_choices = {
-        'type' : current_app.config['FILES_REST_STORAGE_CLASS_LIST']
+        'type' : LazyChoices(
+            lambda: current_app.config['FILES_REST_LOCATION_TYPE_LIST'])
     }
     form_extra_fields = {
-        'access_key': PasswordField('access_key'),
-        'secret_key': PasswordField('secret_key')
+        'access_key': PasswordField('access_key',
+            widget=PasswordInput(hide_value=False)),
+        'secret_key': PasswordField('secret_key',
+            widget=PasswordInput(hide_value=False))
     }
     form_args = dict(
         name=dict(validators=[require_slug])
