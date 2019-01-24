@@ -43,6 +43,7 @@ from .models import Bucket, MultipartObject, ObjectVersion, Part
 from .proxies import current_files_rest, current_permission_factory
 from .serializer import json_serializer
 from .signals import file_downloaded
+from .signals import file_previewed
 from .tasks import merge_multipartobject, remove_file_data
 
 blueprint = Blueprint(
@@ -573,9 +574,10 @@ class ObjectResource(ContentNegotiatedMethodView):
 
     @staticmethod
     def send_object(bucket, obj, expected_chksum=None,
-                    logger_data=None, restricted=True, as_attachment=False):
+                    logger_data=None, restricted=True, as_attachment=False, is_preview=False):
         """Send an object for a given bucket.
 
+        :param is_preview: Determine the type of event. True: file-preview, False: file-download
         :param bucket: The bucket (instance or id) to get the object from.
         :param obj: A :class:`invenio_files_rest.models.ObjectVersion`
             instance.
@@ -594,7 +596,10 @@ class ObjectResource(ContentNegotiatedMethodView):
             current_app.logger.warning(
                 'File checksum mismatch detected.', extra=logger_data)
 
-        file_downloaded.send(current_app._get_current_object(), obj=obj)
+        if is_preview:
+            file_previewed.send(current_app._get_current_object(), obj=obj)
+        else:
+            file_downloaded.send(current_app._get_current_object(), obj=obj)
         return obj.send_file(restricted=restricted,
                              as_attachment=as_attachment)
 
