@@ -107,7 +107,7 @@ class LocationModelView(ModelView):
     )
     page_size = 25
     edit_template = 'admin/location_edit.html'
-    create_template = 'admin/location_edit.html'
+    create_template = 'admin/location_create.html'
 
 
 class BucketModelView(ModelView):
